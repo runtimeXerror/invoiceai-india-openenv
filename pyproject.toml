@@ -14,7 +14,11 @@ dependencies = [
     "uvicorn>=0.24.0",
     "pydantic>=2.0.0",
     "requests>=2.25.0",
+    "openenv-core>=0.2.0",
 ]
+
+[project.scripts]
+invoice-env = "server.app:main"
 
 [project.optional-dependencies]
 inference = [
