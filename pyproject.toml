@@ -18,7 +18,7 @@ dependencies = [
 ]
 
 [project.scripts]
-invoice-env = "server.app:main"
+server = "server.app:main"
 
 [project.optional-dependencies]
 inference = [
