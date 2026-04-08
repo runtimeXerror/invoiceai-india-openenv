@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "invoice-env"
+version = "1.0.0"
+description = "InvoiceAI India — RL environment for Indian GST invoice data extraction"
+readme = "README.md"
+license = {text = "BSD-3-Clause"}
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.104.0",
+    "uvicorn>=0.24.0",
+    "pydantic>=2.0.0",
+    "requests>=2.25.0",
+]
+
+[project.optional-dependencies]
+inference = [
+    "openai>=1.0.0",
+]
+dev = [
+    "pytest>=7.0.0",
+    "httpx>=0.25.0",
+]

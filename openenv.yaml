@@ -1,0 +1,71 @@
+name: invoice_env
+version: "1.0.0"
+description: >
+  InvoiceAI India — An RL environment for training AI agents to extract
+  structured data from Indian GST invoices. Supports 3 difficulty levels
+  (easy, medium, hard) with deterministic grading and partial-credit rewards.
+  Real-world task: invoice data extraction for accounting automation.
+
+author: Vishal (LaunchifyX)
+license: BSD-3-Clause
+tags:
+  - openenv
+  - invoice
+  - gst
+  - india
+  - data-extraction
+  - nlp
+  - real-world
+
+tasks:
+  - id: easy
+    description: "Extract 5 basic fields (vendor name, invoice number, date, GSTIN, total) from a simple GST invoice."
+    difficulty: easy
+    expected_score_range: [0.7, 1.0]
+
+  - id: medium
+    description: "Extract 13 fields including line items, tax breakdown (CGST/SGST), buyer details, and place of supply from a multi-item invoice."
+    difficulty: medium
+    expected_score_range: [0.4, 0.8]
+
+  - id: hard
+    description: "Extract all fields from a messy, inconsistently formatted invoice with discounts, IGST, rounding, mixed units, and abbreviated dates."
+    difficulty: hard
+    expected_score_range: [0.2, 0.6]
+
+action:
+  type: InvoiceAction
+  fields:
+    - vendor_name
+    - invoice_number
+    - invoice_date
+    - gstin
+    - total_amount
+    - subtotal
+    - cgst
+    - sgst
+    - igst
+    - line_items
+    - currency
+    - place_of_supply
+    - buyer_name
+    - buyer_gstin
+
+observation:
+  type: InvoiceObservation
+  fields:
+    - invoice_text
+    - task_id
+    - task_description
+    - fields_to_extract
+    - feedback
+    - score
+    - done
+
+reward:
+  type: float
+  range: [0.0, 1.5]
+  description: >
+    Reward = improvement over previous best score + 0.5 bonus for >=95% accuracy.
+    Partial credit per field: fuzzy string match for text, numeric tolerance for amounts,
+    per-item scoring for line items.
