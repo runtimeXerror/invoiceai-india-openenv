@@ -136,6 +136,7 @@ def grade_extraction(action: InvoiceAction, ground_truth: Dict[str, Any], fields
             field_scores[f] = _string_similarity(str(predicted or ""), str(expected or ""))
 
     total = sum(field_scores.values()) / max(len(field_scores), 1)
+    total = max(0.001, min(0.999, total))
 
     # Build feedback
     good = [f for f, s in field_scores.items() if s >= 0.8]
