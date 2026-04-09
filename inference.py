@@ -120,7 +120,7 @@ def run_task(client: OpenAI, task_id: str):
 
     rewards: List[float] = []
     steps_taken = 0
-    score = 0.0
+    score = 0.001
     success = False
 
     try:
@@ -159,11 +159,11 @@ def run_task(client: OpenAI, task_id: str):
                 break
 
         success = score >= 0.5
-        score = min(max(score, 0.0), 1.0)
+        score = max(0.001, min(0.999, score))
 
     except Exception as exc:
         print(f"[DEBUG] Task {task_id} error: {exc}", flush=True)
-        score = 0.0
+        score = 0.001
 
     finally:
         log_end(success=success, steps=steps_taken, score=score, rewards=rewards)
@@ -178,7 +178,7 @@ def main():
     print("InvoiceAI India — Baseline Inference")
     print("=" * 60)
 
-    total_score = 0.0
+    total_score = 0.001
     for task_id in TASKS:
         print(f"\n{'─' * 40}")
         print(f"Running task: {task_id}")
