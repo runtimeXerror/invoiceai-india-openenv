@@ -72,7 +72,7 @@ def log_step(step: int, action: str, reward: float, done: bool, error: Optional[
 
 def log_end(success: bool, steps: int, score: float, rewards: List[float]):
     rewards_str = ",".join(f"{r:.2f}" for r in rewards)
-    print(f"[END] success={str(success).lower()} steps={steps} score={score:.2f} rewards={rewards_str}", flush=True)
+    print(f"[END] success={str(success).lower()} steps={steps} score={score:.4f} rewards={rewards_str}", flush=True)
 
 
 # ── LLM Call ──────────────────────────────────────────────────────────────────
@@ -185,11 +185,11 @@ def main():
         print(f"{'─' * 40}")
         task_score = run_task(client, task_id)
         total_score += task_score
-        print(f"Task {task_id} score: {task_score:.2f}")
+        print(f"Task {task_id} score: {task_score:.4f}")
 
     avg_score = total_score / len(TASKS)
     print(f"\n{'=' * 60}")
-    print(f"Average score across all tasks: {avg_score:.2f}")
+    print(f"Average score across all tasks: {avg_score:.4f}")
     print(f"{'=' * 60}")
 
 
