@@ -23,7 +23,7 @@ from openai import OpenAI
 API_KEY = os.environ["API_KEY"]
 API_BASE_URL = os.environ["API_BASE_URL"]
 MODEL_NAME = os.getenv("MODEL_NAME") or "Qwen/Qwen2.5-72B-Instruct"
-ENV_URL = os.getenv("INVOICE_ENV_URL") or "https://YOUR-HF-SPACE.hf.space"
+ENV_URL = os.getenv("ENV_URL") or os.getenv("INVOICE_ENV_URL") or "http://localhost:7860"
 
 BENCHMARK = "invoice_extraction"
 MAX_STEPS = 3
