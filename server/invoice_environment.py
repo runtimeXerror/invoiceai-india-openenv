@@ -176,7 +176,7 @@ class InvoiceEnvironment:
             step_count=0,
             task_id=task_id,
             max_steps=5,
-            current_score=0.0,
+            current_score=0.001,
             attempts=0,
         )
         self.best_score = 0.0
@@ -187,7 +187,7 @@ class InvoiceEnvironment:
             task_description=self.current_invoice["task_description"],
             fields_to_extract=self.current_invoice["fields_to_extract"],
             feedback="New invoice loaded. Extract the required fields.",
-            score=0.0,
+            score=0.001,
             done=False,
         )
 
@@ -223,6 +223,7 @@ class InvoiceEnvironment:
             reward += 0.5  # bonus for near-perfect extraction
 
         self.best_score = max(self.best_score, score)
+        self.best_score = max(0.001, min(0.999, self.best_score))
         self.state.current_score = self.best_score
 
         # Check if episode is done
